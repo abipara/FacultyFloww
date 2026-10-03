@@ -1,0 +1,3172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FacultyFlow | Faculty Management System</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    color:#172033;
+}
+
+/* LOGIN */
+
+.login-page{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#312e81,#4f46e5,#7c3aed);
+    padding:20px;
+}
+
+.login-box{
+    width:420px;
+    max-width:100%;
+    background:white;
+    border-radius:22px;
+    padding:35px;
+    box-shadow:0 25px 70px rgba(0,0,0,.25);
+}
+
+.logo{
+    text-align:center;
+    font-size:30px;
+    font-weight:800;
+    color:#4338ca;
+    margin-bottom:8px;
+}
+
+.login-subtitle{
+    text-align:center;
+    color:#64748b;
+    margin-bottom:28px;
+}
+
+.login-tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:22px;
+}
+
+.login-tabs button{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:700;
+    background:#eef2ff;
+    color:#4338ca;
+}
+
+.login-tabs button.active{
+    background:#4338ca;
+    color:white;
+}
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    display:block;
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid #d8dee9;
+    border-radius:10px;
+    outline:none;
+    background:white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:#6366f1;
+}
+
+.login-btn{
+    width:100%;
+    border:none;
+    background:#4338ca;
+    color:white;
+    padding:14px;
+    border-radius:11px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.login-btn:hover{
+    background:#3730a3;
+}
+
+.login-error{
+    margin-top:15px;
+    color:#dc2626;
+    text-align:center;
+    font-size:14px;
+}
+
+/* APP */
+
+.app{
+    display:none;
+    min-height:100vh;
+}
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:250px;
+    background:#111827;
+    color:white;
+    padding:22px 15px;
+    z-index:10;
+}
+
+.sidebar-logo{
+    font-size:24px;
+    font-weight:800;
+    padding:10px;
+    margin-bottom:25px;
+}
+
+.sidebar-logo span{
+    color:#818cf8;
+}
+
+.nav-btn{
+    width:100%;
+    text-align:left;
+    border:none;
+    background:transparent;
+    color:#cbd5e1;
+    padding:13px 15px;
+    border-radius:10px;
+    cursor:pointer;
+    margin-bottom:5px;
+    font-size:14px;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+    background:#312e81;
+    color:white;
+}
+
+.logout-btn{
+    position:absolute;
+    bottom:20px;
+    left:15px;
+    width:220px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#dc2626;
+    color:white;
+    cursor:pointer;
+    font-weight:700;
+}
+
+.main{
+    margin-left:250px;
+    min-height:100vh;
+}
+
+.topbar{
+    background:white;
+    padding:18px 28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.topbar h2{
+    font-size:22px;
+}
+
+.user-info{
+    color:#64748b;
+    font-size:14px;
+}
+
+.content{
+    padding:28px;
+}
+
+/* PAGES */
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 4px 18px rgba(15,23,42,.06);
+}
+
+.card-title{
+    color:#64748b;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.card-value{
+    font-size:30px;
+    font-weight:800;
+}
+
+.card-blue{
+    color:#4338ca;
+}
+
+.card-green{
+    color:#16a34a;
+}
+
+.card-orange{
+    color:#ea580c;
+}
+
+.card-red{
+    color:#dc2626;
+}
+
+/* SECTION */
+
+.section{
+    background:white;
+    border-radius:16px;
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 4px 18px rgba(15,23,42,.05);
+}
+
+.section-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+    gap:15px;
+}
+
+.section-header h3{
+    font-size:19px;
+}
+
+/* BUTTON */
+
+.btn{
+    border:none;
+    padding:10px 15px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:700;
+}
+
+.btn-primary{
+    background:#4338ca;
+    color:white;
+}
+
+.btn-success{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:white;
+}
+
+.btn-secondary{
+    background:#e5e7eb;
+    color:#1f2937;
+}
+
+.btn:hover{
+    opacity:.9;
+}
+
+/* TABLE */
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:750px;
+}
+
+th{
+    text-align:left;
+    padding:13px;
+    background:#f8fafc;
+    color:#475569;
+    font-size:13px;
+}
+
+td{
+    padding:13px;
+    border-top:1px solid #edf0f5;
+    font-size:14px;
+}
+
+.badge{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.badge-present{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.badge-absent{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.badge-pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.badge-progress{
+    background:#dbeafe;
+    color:#1e40af;
+}
+
+.badge-completed{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.badge-high{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.badge-medium{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.badge-low{
+    background:#dcfce7;
+    color:#166534;
+}
+
+/* ATTENDANCE BUTTONS */
+
+.attendance-actions{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+}
+
+.att-btn{
+    border:2px solid transparent;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:12px;
+}
+
+.present-btn{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.absent-btn{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.att-btn.selected{
+    border-color:#111827;
+}
+
+/* WORK STATUS */
+
+.status-buttons{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.status-btn{
+    border:2px solid transparent;
+    padding:9px 13px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:13px;
+}
+
+.status-pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.status-progress{
+    background:#dbeafe;
+    color:#1e40af;
+}
+
+.status-completed{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.status-btn.selected{
+    border-color:#111827;
+}
+
+/* FORM GRID */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    background:white;
+    width:700px;
+    max-width:100%;
+    max-height:90vh;
+    overflow:auto;
+    border-radius:18px;
+    padding:25px;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.close{
+    border:none;
+    background:#f1f5f9;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:18px;
+}
+
+/* MOBILE */
+
+.mobile-menu{
+    display:none;
+    border:none;
+    background:#4338ca;
+    color:white;
+    padding:9px 12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+@media(max-width:1000px){
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.3s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .content{
+        padding:18px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .topbar{
+        padding:15px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN PAGE -->
+
+<div class="login-page" id="loginPage">
+
+    <div class="login-box">
+
+        <div class="logo">FacultyFlow</div>
+
+        <div class="login-subtitle">
+            Faculty Management & Workload Monitoring
+        </div>
+
+        <div class="login-tabs">
+
+            <button id="hodTab"
+                    class="active"
+                    onclick="selectLoginType('hod')">
+                HOD / Admin
+            </button>
+
+            <button id="facultyTab"
+                    onclick="selectLoginType('faculty')">
+                Faculty
+            </button>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Email / Faculty ID</label>
+
+            <input id="loginUser"
+                   type="text"
+                   placeholder="Enter email or faculty ID">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Password</label>
+
+            <input id="loginPassword"
+                   type="password"
+                   placeholder="Enter password">
+
+        </div>
+
+        <button class="login-btn"
+                onclick="login()">
+            Sign In
+        </button>
+
+        <div id="loginError"
+             class="login-error">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- APPLICATION -->
+
+<div class="app" id="app">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+        Faculty<span>Flow</span>
+    </div>
+
+    <div id="hodNavigation">
+
+        <button class="nav-btn active"
+                onclick="showPage('dashboard',this)">
+            📊 Dashboard
+        </button>
+
+        <button class="nav-btn"
+                onclick="showPage('faculty',this)">
+            👨‍🏫 Faculty Management
+        </button>
+
+        <button class="nav-btn"
+                onclick="showPage('attendance',this)">
+            📅 Attendance
+        </button>
+
+        <button class="nav-btn"
+                onclick="showPage('assignment',this)">
+            📝 Work Assignment
+        </button>
+
+        <button class="nav-btn"
+                onclick="showPage('workload',this)">
+            📈 Workload Report
+        </button>
+
+    </div>
+
+    <div id="facultyNavigation" style="display:none">
+
+        <button class="nav-btn active"
+                onclick="showPage('facultyDashboard',this)">
+            📊 My Dashboard
+        </button>
+
+        <button class="nav-btn"
+                onclick="showPage('myAttendance',this)">
+            📅 My Attendance
+        </button>
+
+        <button class="nav-btn"
+                onclick="showPage('myWork',this)">
+            📝 My Work
+        </button>
+
+        <button class="nav-btn"
+                onclick="showPage('myProfile',this)">
+            👤 My Profile
+        </button>
+
+    </div>
+
+    <button class="logout-btn"
+            onclick="logout()">
+        🚪 Logout
+    </button>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+<header class="topbar">
+
+    <div style="display:flex;align-items:center;gap:12px">
+
+        <button class="mobile-menu"
+                onclick="toggleSidebar()">
+            ☰
+        </button>
+
+        <h2 id="pageTitle">
+            Dashboard
+        </h2>
+
+    </div>
+
+    <div class="user-info">
+        Logged in as:
+        <strong id="currentUserName">Admin</strong>
+    </div>
+
+</header>
+
+
+<div class="content">
+
+<!-- DASHBOARD -->
+
+<section class="page active" id="dashboard">
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-title">
+                Total Faculty
+            </div>
+
+            <div class="card-value card-blue"
+                 id="totalFaculty">
+                0
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                Present Today
+            </div>
+
+            <div class="card-value card-green"
+                 id="presentToday">
+                0
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                Absent Today
+            </div>
+
+            <div class="card-value card-red"
+                 id="absentToday">
+                0
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                Active Tasks
+            </div>
+
+            <div class="card-value card-orange"
+                 id="activeTasks">
+                0
+            </div>
+        </div>
+
+    </div>
+
+    <div class="section">
+
+        <div class="section-header">
+            <h3>Recent Work Assignments</h3>
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Faculty</th>
+                        <th>Task</th>
+                        <th>Priority</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="dashboardTasks">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FACULTY MANAGEMENT -->
+
+<section class="page" id="faculty">
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <h3>Faculty Management</h3>
+
+            <!-- IMPORT DATA + ADD FACULTY -->
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+
+                <input type="file"
+                       id="facultyImportFile"
+                       accept=".csv"
+                       style="display:none"
+                       onchange="importFacultyData(event)">
+
+                <button class="btn btn-success"
+                        onclick="document.getElementById('facultyImportFile').click()">
+                    📥 Import Data
+                </button>
+
+                <button class="btn btn-primary"
+                        onclick="openFacultyModal()">
+                    + Add Faculty
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Designation</th>
+                        <th>Experience</th>
+                        <th>Attendance</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="facultyTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ATTENDANCE -->
+
+<section class="page" id="attendance">
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <h3>Faculty Attendance</h3>
+
+            <button class="btn btn-success"
+                    onclick="markAllPresent()">
+                ✓ Mark All Present
+            </button>
+
+        </div>
+
+        <div style="margin-bottom:18px">
+
+            <label>
+                <strong>Select Date</strong>
+            </label>
+
+            <input type="date"
+                   id="attendanceDate"
+                   onchange="renderAttendance()"
+                   style="padding:10px;margin-left:10px;border:1px solid #ddd;border-radius:8px">
+
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Faculty ID</th>
+                        <th>Faculty Name</th>
+                        <th>Department</th>
+                        <th>Today's Status</th>
+                        <th>Attendance %</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="attendanceTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- WORK ASSIGNMENT -->
+
+<section class="page" id="assignment">
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <h3>Work Assignment</h3>
+
+            <button class="btn btn-primary"
+                    onclick="openTaskModal()">
+                + Assign Work
+            </button>
+
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Faculty</th>
+                        <th>Task</th>
+                        <th>Category</th>
+                        <th>Priority</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Change Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="taskTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- WORKLOAD -->
+
+<section class="page" id="workload">
+
+    <div class="section">
+
+        <div class="section-header">
+            <h3>Faculty Workload Report</h3>
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Faculty</th>
+                        <th>Department</th>
+                        <th>Total Tasks</th>
+                        <th>Pending</th>
+                        <th>In Progress</th>
+                        <th>Completed</th>
+                        <th>Workload</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="workloadTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FACULTY DASHBOARD -->
+
+<section class="page" id="facultyDashboard">
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="card-title">
+                My Attendance
+            </div>
+
+            <div class="card-value card-green"
+                 id="myAttendancePercent">
+                0%
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Total Work
+            </div>
+
+            <div class="card-value card-blue"
+                 id="myTotalTasks">
+                0
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Pending
+            </div>
+
+            <div class="card-value card-orange"
+                 id="myPendingTasks">
+                0
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                Completed
+            </div>
+
+            <div class="card-value card-green"
+                 id="myCompletedTasks">
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MY ATTENDANCE -->
+
+<section class="page" id="myAttendance">
+
+    <div class="section">
+
+        <div class="section-header">
+            <h3>My Attendance</h3>
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="myAttendanceTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MY WORK -->
+
+<section class="page" id="myWork">
+
+    <div class="section">
+
+        <div class="section-header">
+            <h3>My Work Assignments</h3>
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Task</th>
+                        <th>Category</th>
+                        <th>Priority</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Update</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="myWorkTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MY PROFILE -->
+
+<section class="page" id="myProfile">
+
+    <div class="section">
+
+        <div class="section-header">
+            <h3>My Profile</h3>
+        </div>
+
+        <div id="profileContent">
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+</main>
+
+</div>
+
+
+<!-- FACULTY MODAL -->
+
+<div class="modal" id="facultyModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>Add Faculty</h3>
+
+            <button class="close"
+                    onclick="closeModal('facultyModal')">
+                ×
+            </button>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Faculty ID</label>
+
+                <input id="newFacultyId"
+                       placeholder="FAC013">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Faculty Name</label>
+
+                <input id="newFacultyName"
+                       placeholder="Faculty Name">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Department</label>
+
+                <select id="newFacultyDept">
+
+                    <option>CSE</option>
+                    <option>ECE</option>
+                    <option>EEE</option>
+                    <option>IT</option>
+                    <option>MECH</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Designation</label>
+
+                <select id="newFacultyDesignation">
+
+                    <option>Assistant Professor</option>
+                    <option>Associate Professor</option>
+                    <option>Professor</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Experience</label>
+
+                <input id="newFacultyExperience"
+                       type="number"
+                       placeholder="5">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Attendance %</label>
+
+                <input id="newFacultyAttendance"
+                       type="number"
+                       value="100"
+                       min="0"
+                       max="100">
+
+            </div>
+
+        </div>
+
+        <button class="btn btn-primary"
+                onclick="addFaculty()">
+            Add Faculty
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- TASK MODAL -->
+
+<div class="modal" id="taskModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>Assign Work</h3>
+
+            <button class="close"
+                    onclick="closeModal('taskModal')">
+                ×
+            </button>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Faculty</label>
+
+                <select id="taskFaculty">
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Category</label>
+
+                <select id="taskCategory">
+
+                    <option>Examination</option>
+                    <option>Documentation</option>
+                    <option>Lab</option>
+                    <option>Administration</option>
+                    <option>Event</option>
+                    <option>Research</option>
+                    <option>Teaching</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group full">
+
+                <label>Work / Task Title</label>
+
+                <input id="taskTitle"
+                       placeholder="Enter work assignment">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Priority</label>
+
+                <select id="taskPriority">
+
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Due Date</label>
+
+                <input id="taskDueDate"
+                       type="date">
+
+            </div>
+
+            <div class="form-group full">
+
+                <label>Instructions</label>
+
+                <textarea id="taskInstructions"
+                          rows="4"
+                          placeholder="Enter instructions"></textarea>
+
+            </div>
+
+            <div class="form-group full">
+
+                <label>Initial Status</label>
+
+                <div class="status-buttons">
+
+                    <button type="button"
+                            class="status-btn status-pending selected"
+                            id="newStatusPending"
+                            onclick="selectNewTaskStatus('Pending')">
+                        ⏳ Pending
+                    </button>
+
+                    <button type="button"
+                            class="status-btn status-progress"
+                            id="newStatusProgress"
+                            onclick="selectNewTaskStatus('In Progress')">
+                        🔵 In Progress
+                    </button>
+
+                    <button type="button"
+                            class="status-btn status-completed"
+                            id="newStatusCompleted"
+                            onclick="selectNewTaskStatus('Completed')">
+                        ✅ Completed
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="btn btn-primary"
+                onclick="addTask()">
+            Assign Work
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+let facultyData = JSON.parse(
+    localStorage.getItem("facultyData")
+) || [
+
+    {
+        id:"FAC001",
+        name:"Dr. Anitha",
+        department:"CSE",
+        designation:"Associate Professor",
+        experience:12,
+        attendance:95.8
+    },
+
+    {
+        id:"FAC002",
+        name:"Priya S",
+        department:"CSE",
+        designation:"Assistant Professor",
+        experience:7,
+        attendance:87.5
+    },
+
+    {
+        id:"FAC003",
+        name:"Kumar R",
+        department:"ECE",
+        designation:"Assistant Professor",
+        experience:8,
+        attendance:79.2
+    },
+
+    {
+        id:"FAC004",
+        name:"Divya M",
+        department:"IT",
+        designation:"Assistant Professor",
+        experience:5,
+        attendance:75
+    },
+
+    {
+        id:"FAC005",
+        name:"Ravi K",
+        department:"CSE",
+        designation:"Associate Professor",
+        experience:10,
+        attendance:91.7
+    },
+
+    {
+        id:"FAC006",
+        name:"Meena P",
+        department:"IT",
+        designation:"Assistant Professor",
+        experience:4,
+        attendance:95.8
+    },
+
+    {
+        id:"FAC007",
+        name:"Suresh V",
+        department:"ECE",
+        designation:"Assistant Professor",
+        experience:6,
+        attendance:90
+    },
+
+    {
+        id:"FAC008",
+        name:"Lakshmi R",
+        department:"EEE",
+        designation:"Assistant Professor",
+        experience:5,
+        attendance:94
+    },
+
+    {
+        id:"FAC009",
+        name:"Arun Kumar",
+        department:"CSE",
+        designation:"Professor",
+        experience:16,
+        attendance:96
+    },
+
+    {
+        id:"FAC010",
+        name:"Keerthana S",
+        department:"IT",
+        designation:"Assistant Professor",
+        experience:3,
+        attendance:89
+    },
+
+    {
+        id:"FAC011",
+        name:"Manoj T",
+        department:"ECE",
+        designation:"Assistant Professor",
+        experience:5,
+        attendance:92
+    },
+
+    {
+        id:"FAC012",
+        name:"Swetha P",
+        department:"CSE",
+        designation:"Assistant Professor",
+        experience:4,
+        attendance:94
+    }
+
+];
+
+
+let tasks = JSON.parse(
+    localStorage.getItem("facultyTasks")
+) || [
+
+    {
+        id:1,
+        facultyId:"FAC001",
+        title:"Prepare Internal Exam Question Paper",
+        category:"Examination",
+        priority:"High",
+        dueDate:"2026-10-10",
+        instructions:"Prepare internal examination question paper.",
+        status:"In Progress"
+    },
+
+    {
+        id:2,
+        facultyId:"FAC002",
+        title:"NAAC Documentation",
+        category:"Documentation",
+        priority:"Medium",
+        dueDate:"2026-10-12",
+        instructions:"Complete NAAC documentation.",
+        status:"Pending"
+    },
+
+    {
+        id:3,
+        facultyId:"FAC003",
+        title:"Laboratory Maintenance",
+        category:"Lab",
+        priority:"High",
+        dueDate:"2026-10-06",
+        instructions:"Check and update laboratory equipment.",
+        status:"In Progress"
+    },
+
+    {
+        id:4,
+        facultyId:"FAC004",
+        title:"Student Attendance Verification",
+        category:"Administration",
+        priority:"Medium",
+        dueDate:"2026-10-05",
+        instructions:"Verify student attendance records.",
+        status:"Completed"
+    },
+
+    {
+        id:5,
+        facultyId:"FAC005",
+        title:"Department Event Coordination",
+        category:"Event",
+        priority:"High",
+        dueDate:"2026-10-15",
+        instructions:"Coordinate department event.",
+        status:"Pending"
+    }
+
+];
+
+
+let attendanceData = JSON.parse(
+    localStorage.getItem("attendanceData")
+) || {};
+
+let currentUser = null;
+
+let loginType = "hod";
+
+let newTaskStatus = "Pending";
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function selectLoginType(type){
+
+    loginType = type;
+
+    document
+        .getElementById("hodTab")
+        .classList.toggle("active",type==="hod");
+
+    document
+        .getElementById("facultyTab")
+        .classList.toggle("active",type==="faculty");
+
+    document.getElementById("loginError").textContent="";
+
+}
+
+
+function login(){
+
+    const user =
+        document.getElementById("loginUser")
+        .value.trim();
+
+    const password =
+        document.getElementById("loginPassword")
+        .value;
+
+    if(loginType==="hod"){
+
+        if(user==="admin" && password==="admin123"){
+
+            currentUser={
+                type:"hod",
+                id:"admin",
+                name:"HOD / Admin"
+            };
+
+            openApp();
+
+        }else{
+
+            showLoginError();
+
+        }
+
+        return;
+
+    }
+
+
+    const faculty =
+        facultyData.find(f=>f.id===user);
+
+    if(
+        faculty &&
+        password==="faculty123"
+    ){
+
+        currentUser={
+            type:"faculty",
+            id:faculty.id,
+            name:faculty.name
+        };
+
+        openApp();
+
+    }else{
+
+        showLoginError();
+
+    }
+
+}
+
+
+function showLoginError(){
+
+    document.getElementById("loginError").textContent =
+        "Invalid ID/email or password.";
+
+}
+
+
+/* =========================
+   APP
+========================= */
+
+function openApp(){
+
+    document.getElementById("loginPage")
+        .style.display="none";
+
+    document.getElementById("app")
+        .style.display="block";
+
+    document.getElementById("currentUserName")
+        .textContent=currentUser.name;
+
+
+    if(currentUser.type==="hod"){
+
+        document.getElementById("hodNavigation")
+            .style.display="block";
+
+        document.getElementById("facultyNavigation")
+            .style.display="none";
+
+        showPage("dashboard");
+
+    }else{
+
+        document.getElementById("hodNavigation")
+            .style.display="none";
+
+        document.getElementById("facultyNavigation")
+            .style.display="block";
+
+        showPage("facultyDashboard");
+
+    }
+
+    renderAll();
+
+}
+
+
+function logout(){
+
+    currentUser=null;
+
+    document.getElementById("app")
+        .style.display="none";
+
+    document.getElementById("loginPage")
+        .style.display="flex";
+
+    document.getElementById("loginUser")
+        .value="";
+
+    document.getElementById("loginPassword")
+        .value="";
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showPage(pageId,button){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(p=>p.classList.remove("active"));
+
+    const page=document.getElementById(pageId);
+
+    if(page){
+        page.classList.add("active");
+    }
+
+
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(btn=>btn.classList.remove("active"));
+
+    if(button){
+        button.classList.add("active");
+    }
+
+
+    const titles={
+
+        dashboard:"Dashboard",
+        faculty:"Faculty Management",
+        attendance:"Attendance",
+        assignment:"Work Assignment",
+        workload:"Workload Report",
+        facultyDashboard:"My Dashboard",
+        myAttendance:"My Attendance",
+        myWork:"My Work",
+        myProfile:"My Profile"
+
+    };
+
+    document.getElementById("pageTitle")
+        .textContent=titles[pageId] || "FacultyFlow";
+
+}
+
+
+function toggleSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList.toggle("open");
+
+}
+
+
+/* =========================
+   STORAGE
+========================= */
+
+function saveData(){
+
+    localStorage.setItem(
+        "facultyData",
+        JSON.stringify(facultyData)
+    );
+
+    localStorage.setItem(
+        "facultyTasks",
+        JSON.stringify(tasks)
+    );
+
+    localStorage.setItem(
+        "attendanceData",
+        JSON.stringify(attendanceData)
+    );
+
+}
+
+
+/* =========================
+   RENDER ALL
+========================= */
+
+function renderAll(){
+
+    renderDashboard();
+    renderFaculty();
+    renderAttendance();
+    renderTasks();
+    renderWorkload();
+    renderFacultyDashboard();
+    renderMyAttendance();
+    renderMyWork();
+    renderProfile();
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function renderDashboard(){
+
+    document.getElementById("totalFaculty")
+        .textContent=facultyData.length;
+
+    const today=getToday();
+
+    let present=0;
+    let absent=0;
+
+    facultyData.forEach(f=>{
+
+        const status =
+            attendanceData[today]?.[f.id];
+
+        if(status==="Present"){
+            present++;
+        }
+
+        if(status==="Absent"){
+            absent++;
+        }
+
+    });
+
+    document.getElementById("presentToday")
+        .textContent=present;
+
+    document.getElementById("absentToday")
+        .textContent=absent;
+
+    document.getElementById("activeTasks")
+        .textContent=
+        tasks.filter(t=>t.status!=="Completed").length;
+
+    const tbody=
+        document.getElementById("dashboardTasks");
+
+    tbody.innerHTML="";
+
+    tasks.slice(-6).reverse().forEach(task=>{
+
+        const faculty=getFaculty(task.facultyId);
+
+        tbody.innerHTML+=`
+
+        <tr>
+
+            <td>${faculty?.name || task.facultyId}</td>
+
+            <td>${task.title}</td>
+
+            <td>
+                ${priorityBadge(task.priority)}
+            </td>
+
+            <td>${task.dueDate}</td>
+
+            <td>
+                ${statusBadge(task.status)}
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================
+   FACULTY
+========================= */
+
+function renderFaculty(){
+
+    const tbody=
+        document.getElementById("facultyTable");
+
+    tbody.innerHTML="";
+
+    facultyData.forEach(f=>{
+
+        tbody.innerHTML+=`
+
+        <tr>
+
+            <td><strong>${f.id}</strong></td>
+
+            <td>${f.name}</td>
+
+            <td>${f.department}</td>
+
+            <td>${f.designation}</td>
+
+            <td>${f.experience} years</td>
+
+            <td>${f.attendance}%</td>
+
+            <td>
+
+                <button
+                    class="btn btn-danger"
+                    onclick="deleteFaculty('${f.id}')">
+                    Delete
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================
+   ADD FACULTY
+========================= */
+
+function openFacultyModal(){
+
+    document
+        .getElementById("facultyModal")
+        .classList.add("show");
+
+}
+
+
+function addFaculty(){
+
+    const id=
+        document.getElementById("newFacultyId")
+        .value.trim();
+
+    const name=
+        document.getElementById("newFacultyName")
+        .value.trim();
+
+    const department=
+        document.getElementById("newFacultyDept")
+        .value;
+
+    const designation=
+        document.getElementById("newFacultyDesignation")
+        .value;
+
+    const experience=
+        Number(
+            document.getElementById("newFacultyExperience")
+            .value
+        );
+
+    const attendance=
+        Number(
+            document.getElementById("newFacultyAttendance")
+            .value
+        );
+
+
+    if(!id || !name){
+
+        alert("Faculty ID and Name are required.");
+
+        return;
+
+    }
+
+
+    if(facultyData.some(f=>f.id===id)){
+
+        alert("Faculty ID already exists.");
+
+        return;
+
+    }
+
+
+    facultyData.push({
+
+        id,
+        name,
+        department,
+        designation,
+        experience,
+        attendance
+
+    });
+
+
+    saveData();
+
+    closeModal("facultyModal");
+
+    renderAll();
+
+    alert("Faculty added successfully.");
+
+}
+
+
+function deleteFaculty(id){
+
+    if(!confirm("Delete this faculty?")){
+        return;
+    }
+
+    facultyData=
+        facultyData.filter(f=>f.id!==id);
+
+    saveData();
+
+    renderAll();
+
+}
+
+
+/* =========================
+   IMPORT FACULTY CSV DATA
+========================= */
+
+function importFacultyData(event){
+
+    const file = event.target.files[0];
+
+    if(!file){
+        return;
+    }
+
+    if(!file.name.toLowerCase().endsWith(".csv")){
+
+        alert("Please select a CSV file.");
+
+        event.target.value="";
+
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+        const text = e.target.result;
+
+        const rows = text
+            .split(/\r?\n/)
+            .map(row=>row.trim())
+            .filter(row=>row.length>0);
+
+        if(rows.length < 2){
+
+            alert("CSV file has no faculty data.");
+
+            event.target.value="";
+
+            return;
+        }
+
+        let imported = 0;
+        let skipped = 0;
+
+        /* First row is Header */
+
+        for(let i=1;i<rows.length;i++){
+
+            const columns = rows[i]
+                .split(",")
+                .map(value =>
+                    value.trim().replace(/^"|"$/g,"")
+                );
+
+            if(columns.length < 6){
+
+                skipped++;
+
+                continue;
+            }
+
+            const id = columns[0];
+            const name = columns[1];
+            const department = columns[2];
+            const designation = columns[3];
+
+            const experience =
+                Number(columns[4]);
+
+            const attendance =
+                Number(columns[5]);
+
+
+            if(!id || !name || !department){
+
+                skipped++;
+
+                continue;
+            }
+
+
+            /* Duplicate Faculty ID */
+
+            if(facultyData.some(f=>f.id===id)){
+
+                skipped++;
+
+                continue;
+            }
+
+
+            facultyData.push({
+
+                id:id,
+
+                name:name,
+
+                department:department,
+
+                designation:
+                    designation ||
+                    "Assistant Professor",
+
+                experience:
+                    isNaN(experience)
+                    ? 0
+                    : experience,
+
+                attendance:
+                    isNaN(attendance)
+                    ? 0
+                    : attendance
+
+            });
+
+            imported++;
+
+        }
+
+
+        saveData();
+
+        renderAll();
+
+        event.target.value="";
+
+
+        alert(
+            "Faculty data imported successfully!\n\n" +
+            "Imported: " + imported +
+            "\nSkipped: " + skipped
+        );
+
+    };
+
+
+    reader.onerror=function(){
+
+        alert("Unable to read the CSV file.");
+
+        event.target.value="";
+
+    };
+
+
+    reader.readAsText(file);
+
+}
+
+
+/* =========================
+   ATTENDANCE
+========================= */
+
+function getToday(){
+
+    const d=new Date();
+
+    return d.toISOString().split("T")[0];
+
+}
+
+
+document.getElementById("attendanceDate")
+    .value=getToday();
+
+
+function renderAttendance(){
+
+    const date=
+        document.getElementById("attendanceDate")
+        .value || getToday();
+
+    const tbody=
+        document.getElementById("attendanceTable");
+
+    tbody.innerHTML="";
+
+
+    facultyData.forEach(f=>{
+
+        const status=
+            attendanceData[date]?.[f.id] || "";
+
+        const percentage=
+            calculateAttendance(f.id);
+
+
+        tbody.innerHTML+=`
+
+        <tr>
+
+            <td>${f.id}</td>
+
+            <td><strong>${f.name}</strong></td>
+
+            <td>${f.department}</td>
+
+            <td>
+
+                <div class="attendance-actions">
+
+                    <button
+                        class="att-btn present-btn ${status==="Present"?"selected":""}"
+                        onclick="setAttendance('${f.id}','Present')">
+                        🟢 Present
+                    </button>
+
+                    <button
+                        class="att-btn absent-btn ${status==="Absent"?"selected":""}"
+                        onclick="setAttendance('${f.id}','Absent')">
+                        🔴 Absent
+                    </button>
+
+                </div>
+
+            </td>
+
+            <td>
+                <strong>${percentage}%</strong>
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+function setAttendance(facultyId,status){
+
+    const date=
+        document.getElementById("attendanceDate")
+        .value || getToday();
+
+
+    if(!attendanceData[date]){
+        attendanceData[date]={};
+    }
+
+
+    attendanceData[date][facultyId]=status;
+
+
+    updateFacultyAttendance(facultyId);
+
+    saveData();
+
+    renderAttendance();
+
+    renderDashboard();
+
+    renderFacultyDashboard();
+
+}
+
+
+function markAllPresent(){
+
+    const date=
+        document.getElementById("attendanceDate")
+        .value || getToday();
+
+
+    if(!attendanceData[date]){
+        attendanceData[date]={};
+    }
+
+
+    facultyData.forEach(f=>{
+
+        attendanceData[date][f.id]="Present";
+
+        updateFacultyAttendance(f.id);
+
+    });
+
+
+    saveData();
+
+    renderAttendance();
+
+    renderDashboard();
+
+    renderFacultyDashboard();
+
+}
+
+
+function calculateAttendance(facultyId){
+
+    let present=0;
+    let total=0;
+
+
+    Object.values(attendanceData).forEach(day=>{
+
+        if(day[facultyId]){
+
+            total++;
+
+            if(day[facultyId]==="Present"){
+                present++;
+            }
+
+        }
+
+    });
+
+
+    if(total===0){
+
+        const f=getFaculty(facultyId);
+
+        return f
+            ? Number(f.attendance).toFixed(1)
+            : "0.0";
+
+    }
+
+
+    return ((present/total)*100).toFixed(1);
+
+}
+
+
+function updateFacultyAttendance(facultyId){
+
+    const f=getFaculty(facultyId);
+
+    if(f){
+
+        f.attendance=
+            Number(calculateAttendance(facultyId));
+
+    }
+
+}
+
+
+/* =========================
+   WORK ASSIGNMENT
+========================= */
+
+function openTaskModal(){
+
+    const select=
+        document.getElementById("taskFaculty");
+
+    select.innerHTML="";
+
+
+    facultyData.forEach(f=>{
+
+        select.innerHTML+=`
+
+        <option value="${f.id}">
+            ${f.id} - ${f.name}
+        </option>
+
+        `;
+
+    });
+
+
+    newTaskStatus="Pending";
+
+    selectNewTaskStatus("Pending");
+
+
+    document
+        .getElementById("taskModal")
+        .classList.add("show");
+
+}
+
+
+function selectNewTaskStatus(status){
+
+    newTaskStatus=status;
+
+
+    document
+        .querySelectorAll("#taskModal .status-btn")
+        .forEach(btn=>
+            btn.classList.remove("selected")
+        );
+
+
+    if(status==="Pending"){
+
+        document
+            .getElementById("newStatusPending")
+            .classList.add("selected");
+
+    }
+
+
+    if(status==="In Progress"){
+
+        document
+            .getElementById("newStatusProgress")
+            .classList.add("selected");
+
+    }
+
+
+    if(status==="Completed"){
+
+        document
+            .getElementById("newStatusCompleted")
+            .classList.add("selected");
+
+    }
+
+}
+
+
+function addTask(){
+
+    const facultyId=
+        document.getElementById("taskFaculty")
+        .value;
+
+    const title=
+        document.getElementById("taskTitle")
+        .value.trim();
+
+    const category=
+        document.getElementById("taskCategory")
+        .value;
+
+    const priority=
+        document.getElementById("taskPriority")
+        .value;
+
+    const dueDate=
+        document.getElementById("taskDueDate")
+        .value;
+
+    const instructions=
+        document.getElementById("taskInstructions")
+        .value.trim();
+
+
+    if(!title || !dueDate){
+
+        alert("Task title and due date are required.");
+
+        return;
+
+    }
+
+
+    tasks.push({
+
+        id:Date.now(),
+
+        facultyId,
+
+        title,
+
+        category,
+
+        priority,
+
+        dueDate,
+
+        instructions,
+
+        status:newTaskStatus
+
+    });
+
+
+    saveData();
+
+    closeModal("taskModal");
+
+    renderAll();
+
+    alert("Work assigned successfully.");
+
+}
+
+
+function renderTasks(){
+
+    const tbody=
+        document.getElementById("taskTable");
+
+    tbody.innerHTML="";
+
+
+    tasks.forEach(task=>{
+
+        const faculty=getFaculty(task.facultyId);
+
+        tbody.innerHTML+=`
+
+        <tr>
+
+            <td>
+                ${faculty?.name || task.facultyId}
+            </td>
+
+            <td>
+                <strong>${task.title}</strong>
+            </td>
+
+            <td>${task.category}</td>
+
+            <td>${priorityBadge(task.priority)}</td>
+
+            <td>${task.dueDate}</td>
+
+            <td>
+                ${statusBadge(task.status)}
+            </td>
+
+            <td>
+
+                <div class="status-buttons">
+
+                    <button
+                        class="status-btn status-pending ${task.status==="Pending"?"selected":""}"
+                        onclick="changeTaskStatus(${task.id},'Pending')">
+                        ⏳
+                    </button>
+
+                    <button
+                        class="status-btn status-progress ${task.status==="In Progress"?"selected":""}"
+                        onclick="changeTaskStatus(${task.id},'In Progress')">
+                        🔵
+                    </button>
+
+                    <button
+                        class="status-btn status-completed ${task.status==="Completed"?"selected":""}"
+                        onclick="changeTaskStatus(${task.id},'Completed')">
+                        ✅
+                    </button>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+function changeTaskStatus(taskId,status){
+
+    const task=
+        tasks.find(t=>t.id===taskId);
+
+    if(!task){
+        return;
+    }
+
+
+    task.status=status;
+
+    saveData();
+
+    renderAll();
+
+}
+
+
+function statusBadge(status){
+
+    if(status==="Pending"){
+
+        return `<span class="badge badge-pending">
+                    ⏳ Pending
+                </span>`;
+
+    }
+
+
+    if(status==="In Progress"){
+
+        return `<span class="badge badge-progress">
+                    🔵 In Progress
+                </span>`;
+
+    }
+
+
+    return `<span class="badge badge-completed">
+                ✅ Completed
+            </span>`;
+
+}
+
+
+function priorityBadge(priority){
+
+    if(priority==="High"){
+
+        return `<span class="badge badge-high">
+                    High
+                </span>`;
+
+    }
+
+
+    if(priority==="Medium"){
+
+        return `<span class="badge badge-medium">
+                    Medium
+                </span>`;
+
+    }
+
+
+    return `<span class="badge badge-low">
+                Low
+            </span>`;
+
+}
+
+
+/* =========================
+   WORKLOAD
+========================= */
+
+function renderWorkload(){
+
+    const tbody=
+        document.getElementById("workloadTable");
+
+    tbody.innerHTML="";
+
+
+    facultyData.forEach(f=>{
+
+        const facultyTasks=
+            tasks.filter(t=>t.facultyId===f.id);
+
+
+        const pending=
+            facultyTasks
+                .filter(t=>t.status==="Pending")
+                .length;
+
+
+        const progress=
+            facultyTasks
+                .filter(t=>t.status==="In Progress")
+                .length;
+
+
+        const completed=
+            facultyTasks
+                .filter(t=>t.status==="Completed")
+                .length;
+
+
+        const total=facultyTasks.length;
+
+
+        let workload="Low";
+
+
+        if(total>=5){
+
+            workload="High";
+
+        }else if(total>=3){
+
+            workload="Medium";
+
+        }
+
+
+        tbody.innerHTML+=`
+
+        <tr>
+
+            <td>
+                <strong>${f.name}</strong>
+            </td>
+
+            <td>${f.department}</td>
+
+            <td>${total}</td>
+
+            <td>${pending}</td>
+
+            <td>${progress}</td>
+
+            <td>${completed}</td>
+
+            <td>
+
+                <span class="badge ${
+                    workload==="High"
+                    ?"badge-high"
+                    :workload==="Medium"
+                    ?"badge-medium"
+                    :"badge-low"
+                }">
+
+                    ${workload}
+
+                </span>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================
+   FACULTY DASHBOARD
+========================= */
+
+function renderFacultyDashboard(){
+
+    if(!currentUser ||
+       currentUser.type!=="faculty"){
+
+        return;
+
+    }
+
+
+    const faculty=
+        getFaculty(currentUser.id);
+
+
+    if(!faculty){
+        return;
+    }
+
+
+    const myTasks=
+        tasks.filter(t=>t.facultyId===faculty.id);
+
+
+    document.getElementById("myAttendancePercent")
+        .textContent=
+        calculateAttendance(faculty.id)+"%";
+
+
+    document.getElementById("myTotalTasks")
+        .textContent=myTasks.length;
+
+
+    document.getElementById("myPendingTasks")
+        .textContent=
+        myTasks
+            .filter(t=>t.status==="Pending")
+            .length;
+
+
+    document.getElementById("myCompletedTasks")
+        .textContent=
+        myTasks
+            .filter(t=>t.status==="Completed")
+            .length;
+
+}
+
+
+/* =========================
+   MY ATTENDANCE
+========================= */
+
+function renderMyAttendance(){
+
+    if(!currentUser ||
+       currentUser.type!=="faculty"){
+
+        return;
+
+    }
+
+
+    const tbody=
+        document.getElementById("myAttendanceTable");
+
+    tbody.innerHTML="";
+
+
+    Object.keys(attendanceData)
+        .sort()
+        .reverse()
+        .forEach(date=>{
+
+            const status=
+                attendanceData[date]?.[currentUser.id];
+
+
+            if(status){
+
+                tbody.innerHTML+=`
+
+                <tr>
+
+                    <td>${date}</td>
+
+                    <td>
+
+                        ${
+                            status==="Present"
+
+                            ?'<span class="badge badge-present">🟢 Present</span>'
+
+                            :'<span class="badge badge-absent">🔴 Absent</span>'
+                        }
+
+                    </td>
+
+                </tr>
+
+                `;
+
+            }
+
+        });
+
+}
+
+
+/* =========================
+   MY WORK
+========================= */
+
+function renderMyWork(){
+
+    if(!currentUser ||
+       currentUser.type!=="faculty"){
+
+        return;
+
+    }
+
+
+    const tbody=
+        document.getElementById("myWorkTable");
+
+    tbody.innerHTML="";
+
+
+    tasks
+        .filter(t=>t.facultyId===currentUser.id)
+        .forEach(task=>{
+
+            tbody.innerHTML+=`
+
+            <tr>
+
+                <td>
+                    <strong>${task.title}</strong>
+                </td>
+
+                <td>${task.category}</td>
+
+                <td>
+                    ${priorityBadge(task.priority)}
+                </td>
+
+                <td>${task.dueDate}</td>
+
+                <td>
+                    ${statusBadge(task.status)}
+                </td>
+
+                <td>
+
+                    <div class="status-buttons">
+
+                        <button
+                            class="status-btn status-pending ${task.status==="Pending"?"selected":""}"
+                            onclick="changeMyTaskStatus(${task.id},'Pending')">
+                            ⏳
+                        </button>
+
+                        <button
+                            class="status-btn status-progress ${task.status==="In Progress"?"selected":""}"
+                            onclick="changeMyTaskStatus(${task.id},'In Progress')">
+                            🔵
+                        </button>
+
+                        <button
+                            class="status-btn status-completed ${task.status==="Completed"?"selected":""}"
+                            onclick="changeMyTaskStatus(${task.id},'Completed')">
+                            ✅
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        });
+
+}
+
+
+function changeMyTaskStatus(taskId,status){
+
+    const task=
+        tasks.find(t=>
+            t.id===taskId &&
+            t.facultyId===currentUser.id
+        );
+
+
+    if(!task){
+        return;
+    }
+
+
+    task.status=status;
+
+    saveData();
+
+    renderAll();
+
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function renderProfile(){
+
+    if(!currentUser ||
+       currentUser.type!=="faculty"){
+
+        return;
+
+    }
+
+
+    const f=
+        getFaculty(currentUser.id);
+
+
+    if(!f){
+        return;
+    }
+
+
+    document.getElementById("profileContent")
+        .innerHTML=`
+
+        <div class="cards">
+
+            <div class="card">
+
+                <div class="card-title">
+                    Faculty ID
+                </div>
+
+                <div class="card-value"
+                     style="font-size:22px">
+
+                    ${f.id}
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-title">
+                    Name
+                </div>
+
+                <div class="card-value"
+                     style="font-size:22px">
+
+                    ${f.name}
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-title">
+                    Department
+                </div>
+
+                <div class="card-value"
+                     style="font-size:22px">
+
+                    ${f.department}
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-title">
+                    Attendance
+                </div>
+
+                <div class="card-value card-green"
+                     style="font-size:22px">
+
+                    ${calculateAttendance(f.id)}%
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+}
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function getFaculty(id){
+
+    return facultyData.find(
+        f=>f.id===id
+    );
+
+}
+
+
+function closeModal(id){
+
+    document
+        .getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+/* =========================
+   INITIAL
+========================= */
+
+renderAll();
+
+</script>
+
+</body>
+</html>
